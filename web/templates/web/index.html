@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="card d-inline-block pr-2 pl-2" style="height: auto; padding-bottom: 25px;">
+                <h1>Choose Which Site to Enter</h1>
+                    <a href="/dashboard/secure" class="secure">Secure</a>
+                    <a href="/dashboard/insecure" class="insecure">Insecure</a>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+{% endblock %}

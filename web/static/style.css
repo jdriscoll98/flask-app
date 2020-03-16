@@ -1,0 +1,32 @@
+
+.card {
+    background-color: whitesmoke;
+    border: 1px solid black;
+    height: 500px;
+    margin-top: 25%
+}
+
+.new-user-link {
+    margin-top: 10px;
+}
+
+.secure, .insecure {
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+.secure { 
+    float:left;
+    background-color: green;
+    margin-left: 25px;
+}
+
+.insecure {
+    float: right;
+    background-color: red;
+    margin-right: 25px;
+}
