@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, url_for, redirect
 
 from . import db, auth, dashboard
 
@@ -26,9 +26,9 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/hello')
+    @app.route('/')
     def hello():
-        return 'Hello, World!'
+        return redirect(url_for('dashboard.index'))
     
     db.init_app(app)
     app.register_blueprint(auth.bp)

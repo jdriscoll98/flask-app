@@ -12,6 +12,15 @@
             <div class="row">
                 <div class="col text-center heading">
                     <h1 class="mt-5 mb-5">Login</h1>
+                    {% with error = get_flashed_messages(category_filter=["error"]) %}
+                    {% if error %}
+                    <div class="alert-message block-message success">
+                            {%- for msg in error %}
+                            <h6>{{ msg }}</h6>
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
                     <form method="POST" action="">
                         <div class="form-group">
                             <label>Username</label>

@@ -32,7 +32,8 @@ def register():
        
 
         if error is None:
-            hashed_password = bcrypt.hashpw(password, bcrypt.gensalt(12))
+            hashed_password = bcrypt.hashpw(
+                password.encode('utf-8'), bcrypt.gensalt(12))
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
                 (username, hashed_password)
@@ -41,7 +42,7 @@ def register():
             flash(u"Account Created Successfully!", "success")
             return redirect(url_for('auth.login'))
 
-        flash(error)
+        flash(error, 'error')
 
     return render_template('auth/register.html')
 
@@ -58,7 +59,7 @@ def login():
 
         if user is None:
             error = 'Incorrect username or password'
-        elif not bcrypt.checkpw(password, user['password']):
+        elif not bcrypt.checkpw(password.encode('utf-8'), user['password']):
             error = 'Incorrect username or password.'
 
         if error is None:
@@ -66,7 +67,7 @@ def login():
             session['user_id'] = user['id']
             return redirect(url_for('dashboard.index'))
 
-        flash(error)
+        flash(error, 'error')
 
     return render_template('auth/login.html')
 
