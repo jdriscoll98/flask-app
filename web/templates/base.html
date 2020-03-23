@@ -29,19 +29,20 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 offset-md-3 text-center"
+            <div class="col-md-6 offset-md-3 text-center">
            {% with success = get_flashed_messages(category_filter=["success"]) %}
            {% if success %}
            <div class="alert-message block-message success">
                    {%- for msg in success %}
                    <h6>{{ msg }}</h6>
-                   {% endfor -%}
+                   {% endfor %}
            </div>
            {% endif %}
            {% endwith %}
         </div>
     </div>
     {% block content %}{% endblock %}
+</div>
 </section>
 </body>
 
