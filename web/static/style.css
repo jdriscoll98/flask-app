@@ -1,6 +1,8 @@
-
-.card {
+body {
     background-color: whitesmoke;
+}
+.card {
+    
     border: 1px solid black;
     height: 500px;
     margin-top: 25%
@@ -29,4 +31,20 @@
     float: right;
     background-color: red;
     margin-right: 25px;
+}
+
+.form-card {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.inbox {
+    width: 100%;
+    background-color: white;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+
 }

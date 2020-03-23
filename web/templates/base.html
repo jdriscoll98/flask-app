@@ -27,7 +27,7 @@
         </div>
     </nav>
 <section class="content">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-3 text-center"
            {% with success = get_flashed_messages(category_filter=["success"]) %}
@@ -45,5 +45,7 @@
 </section>
 </body>
 
+{% block js %}
+{% endblock js %}
 
 

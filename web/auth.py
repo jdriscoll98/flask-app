@@ -1,11 +1,11 @@
 import functools
 import bcrypt
-
+import random
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from web.db import get_db
+from .db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -35,8 +35,8 @@ def register():
             hashed_password = bcrypt.hashpw(
                 password.encode('utf-8'), bcrypt.gensalt(12))
             db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, hashed_password)
+                'INSERT INTO user (username, password, balance) VALUES (?, ?, ?)',
+                (username, hashed_password, random.randint(0, 1000))
             )
             db.commit()
             flash(u"Account Created Successfully!", "success")

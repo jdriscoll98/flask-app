@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="card d-inline-block pr-2 pl-2" style="height: auto; padding-bottom: 25px; margin-top:5%">
+                <h1>Welcome {{ user['username'] }} </h1>
+                <h3>You account number is {{ user['id'] }}</h3>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-4 offset-md-2 text-center px-5">
+            <div class="form-card">
+                <h3 style="font-weight: 700">Check your balance</h3>
+                <form method="POST" action="{{ url_for('insecure.get_balance') }}">
+                    <div class="form-group row pt-3">
+                        <div class="col-5 text-left pr-0">
+                            <label style="font-weight:bold">Account Number</label>
+                        </div>
+                        <div class="col-5 pl-0">
+                            <input type="text" class="form-control" name="account_number" required />
+                        </div>
+                    </div>
+                    <div class="col-md-10 offset-md-1">
+                        <button class="btn btn-dark col-10 offset-1">Go</button>
+                    </div>
+
+                </form>
+                {% if results %}
+                <table class="table">
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Account number
+                        </th>
+                        <th>
+                            Balance
+                        </th>
+                    </tr>
+                    {% for result in results %}
+                    <tr>
+                        <td>
+                            {{ result.username }}
+                        </td>
+                        <td>
+                            {{ result.id }}
+                        </td>
+                        <td>
+                            {{ result.balance }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="form-card px-5">
+                {% with send = get_flashed_messages(category_filter=["send"]) %}
+                {% if send %}
+                <div class="alert-message block-message success">
+                    {%- for msg in send %}
+                    <h6>{{ msg }}</h6>
+                    {% endfor -%}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <h3 style="font-weight: 700">Send money to an account!</h3>
+                <form method="POST" action="{{ url_for('insecure.send_money') }}">
+
+                    <div class="form-group row pt-3">
+                        <div class="col-5 text-left pr-0">
+                            <label style="font-weight:bold">Recepients Account Number</label>
+                        </div>
+                        <div class="col-5 pl-0">
+                            <input type="text" class="form-control" name="recepient" required />
+                        </div>
+
+                    </div>
+                    <div class="form-group row pt-3">
+                        <div class="col-5 text-left pr-0">
+                            <label style="font-weight:bold">Sender's Account Number</label>
+                        </div>
+                        <div class="col-5 pl-0">
+                            <input type="text" class="form-control" name="sender" required />
+                        </div>
+
+                    </div>
+                    <div class="form-group row pt-3">
+                        <div class="col-5 text-left pr-0">
+                            <label style="font-weight:bold">Amount</label>
+                        </div>
+                        <div class="col-5 pl-0">
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                    </div>
+                    <button class="btn btn-dark col-6">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-10 offset-md-1">
+            <div class="inbox p-3">
+                <h3 style="font-weight: 700">Inbox</h3>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                From
+                            </th>
+                            <th>
+                                Subject
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                notAHacker@gmail.com
+                            </td>
+                            <td>
+                                Hey! Check out my page!
+                            </td>
+                            <td>
+                                <a href="{{ url_for('insecure.send_money', recepient=3, sender=g.user['id'], amount=10000)}}">My super cool, not CSRF prone, link!</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                alsoNotAHacker@gmail.com
+                            </td>
+                            <td>
+                                Ignore that dude, check out my site!
+                            </td>
+                            <td>
+                                <a href="{{ url_for('insecure.hacker_site')}}">I promise theres no XSS on this page!</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

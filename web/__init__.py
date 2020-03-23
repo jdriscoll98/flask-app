@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, url_for, redirect
 
-from . import db, auth, dashboard
+from . import db, auth, dashboard, secure, insecure
 
 def create_app(test_config=None):
     # create and configure the app
@@ -25,6 +25,14 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    @app.errorhandler(401)
+    def csrf_handle(e):
+        return "CSRF token missing"
+    
+    @app.errorhandler(403)
+    def permission_denied(e):
+        return "You're not allowed to do that!"
+
     # a simple page that says hello
     @app.route('/')
     def hello():
@@ -33,5 +41,7 @@ def create_app(test_config=None):
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
-
+    app.register_blueprint(secure.bp)
+    app.register_blueprint(insecure.bp)
+    
     return app

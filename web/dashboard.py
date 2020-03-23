@@ -4,7 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from web.auth import login_required
+from .auth import login_required
 
 bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 

